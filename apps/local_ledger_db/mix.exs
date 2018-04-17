@@ -38,6 +38,7 @@ defmodule LocalLedgerDB.Mixfile do
       {:ecto, "~> 2.1.6"},
       {:salty, github: "omisego/salty"},
       {:cloak, "~> 0.3.3"},
+      {:deferred_config, "~> 0.1.0"},
       {:ex_machina, "~> 2.2", only: :test}
     ]
   end

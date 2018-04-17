@@ -25,7 +25,8 @@ defmodule EWallet.Umbrella.Mixfile do
   # Run "mix help deps" for examples and options.
   defp deps do
     [
-      {:credo, "~> 0.9.2", only: [:dev, :test], runtime: false},
+      {:credo, github: "rrrene/credo", only: [:dev, :test], runtime: false},
+      {:distillery, "~> 1.5", runtime: false},
       {:ex_doc, "~> 0.16", only: :dev, runtime: false},
       {:excoveralls, "~> 0.8", only: :test, runtime: false}
     ]
