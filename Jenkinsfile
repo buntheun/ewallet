@@ -1,32 +1,57 @@
+def label = "ewallet-${UUID.randomUUID().toString()}"
+
 podTemplate(
-    label: 'ewallet',
+    label: label,
     containers: [
-        containerTemplate(name: 'jnlp', image: 'gcr.io/omise-go/jenkins-slave', args: '${computer.jnlpmac} ${computer.name}'),
-        containerTemplate(name: 'postgresql', image: 'postgres:9.6'),
+        containerTemplate(
+            name: 'jnlp',
+            image: 'omisegoimages/jenkins-slave-ewallet:1.6-otp20',
+            alwaysPullImage: true,
+            args: '${computer.jnlpmac} ${computer.name}'
+        ),
+        containerTemplate(
+            name: 'postgresql',
+            image: 'postgres:9.6',
+            ports: [
+                portMapping(
+                    name: 'postgresql',
+                    containerPort: 5432,
+                    hostPort: 5432
+                )
+            ]
+        ),
     ],
     volumes: [
-        hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
-        hostPathVolume(mountPath: '/usr/bin/docker', hostPath: '/usr/bin/docker'),
+        hostPathVolume(
+            mountPath: '/var/run/docker.sock',
+            hostPath: '/var/run/docker.sock'
+        ),
+        hostPathVolume(
+            mountPath: '/usr/bin/docker',
+            hostPath: '/usr/bin/docker'
+        ),
     ]
 ) {
-    node('ewallet') {
+    node(label) {
         Random random = new Random()
         def tmpDir = pwd(tmp: true)
 
-        def project = 'omisego'
+        def project = 'gcr.io/omise-go'
         def appName = 'ewallet'
         def imageName = "${project}/${appName}"
+        def releaseVersion = '0.1.0-beta'
 
         def nodeIP = getNodeIP()
         def gitCommit
 
-        stage('Checkout') {
-            checkout scm
-        }
-
-        stage('Build') {
-            gitCommit = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-            sh("docker build --pull . -t ${imageName}:${gitCommit}")
+        stage('Setup') {
+            parallel(
+                mix: { sh("mix do local.hex --force, local.rebar --force") },
+                checkout: {
+                    checkout scm
+                    gitCommit = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                }
+            )
         }
 
         stage('Test') {
@@ -34,75 +59,45 @@ podTemplate(
                 sh("pg_isready -t 60 -h localhost -p 5432")
             }
 
-            sh(
-                """
-                docker run \
-                    --rm \
-                    --entrypoint /bin/execlineb \
-                    -e DATABASE_URL="postgresql://postgres@${nodeIP}:5432/ewallet_${gitCommit}_ewallet" \
-                    -e LOCAL_LEDGER_DATABASE_URL="postgresql://postgres@${nodeIP}:5432/ewallet_${gitCommit}_local_ledger" \
-                    ${imageName}:${gitCommit} \
-                    -P -c " \
-                        s6-setuidgid ewallet \
-                        s6-env HOME=/tmp/ewallet \
-                        s6-env MIX_ENV=test \
-                        cd /app \
-                        mix do format --check-formatted, credo, ecto.create, ecto.migrate, test \
-                    " \
-                """.stripIndent()
-            )
+            withEnv([
+                "MIX_ENV=test",
+                "DATABASE_URL=postgresql://postgres@localhost:5432/ewallet_${gitCommit}_ewallet",
+                "LOCAL_LEDGER_DATABASE_URL=postgresql://postgres@localhost:5432/ewallet_${gitCommit}_local_ledger"
+            ]) {
+                parallel(
+                    compile_test: { sh("mix do deps.get, compile") },
+                    format: { sh("mix do format --check-formatted") }
+                )
+
+                parallel(
+                    credo: { sh("mix do credo") },
+                    test: { sh("mix do ecto.create, ecto.migrate, test") }
+                )
+            }
         }
 
-        if (env.BRANCH_NAME == 'develop') {
-            stage('Push') {
-                withCredentials([file(credentialsId: 'docker', variable: 'DOCKER_CONFIG')]) {
-                    def configDir = sh(script: "dirname ${DOCKER_CONFIG}", returnStdout: true).trim()
-                    sh("docker --config=${configDir} tag ${imageName}:${gitCommit} ${imageName}:latest")
-                    sh("docker --config=${configDir} push ${imageName}:${gitCommit}")
-                    sh("docker --config=${configDir} push ${imageName}:latest")
-                }
+        stage('Build') {
+            withEnv(["MIX_ENV=prod"]) {
+                parallel(
+                    compile_prod: { sh("mix do deps.get, compile") },
+                    assets: {
+                        dir("apps/admin_panel/assets") {
+                            sh("yarn install")
+                            sh("yarn build")
+                        }
+                    }
+                )
+
+                sh("mix release")
             }
 
-            stage('Deploy') {
-                dir("${tmpDir}/deploy") {
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: '*/master']],
-                        userRemoteConfigs: [
-                            [
-                                url: 'ssh://git@github.com/omisego/kube.git',
-                                credentialsId: 'github',
-                            ],
-                        ]
-                    ])
+            sh("mv _build/prod/rel/ewallet/releases/${releaseVersion}/ewallet.tar.gz .")
+            sh("docker build --pull . -t ${imageName}:${gitCommit}")
+        }
 
-                    sh("sed -i.bak 's#${imageName}:latest#${imageName}:${gitCommit}#' staging/k8s/ewallet/deployment.yaml")
-                    sh("kubectl apply -f staging/k8s/ewallet/deployment.yaml")
-                    sh("kubectl rollout status --namespace=staging deployment/ewallet")
-
-                    def podID = getPodID('--namespace=staging -l app=ewallet')
-
-                    sh(
-                        """
-                        kubectl exec ${podID} --namespace=staging -- \
-                            /bin/execlineb -P -c " \
-                                s6-setuidgid ewallet \
-                                s6-env HOME=/tmp/ewallet \
-                                mix ecto.migrate \
-                            " \
-                        """.stripIndent()
-                    )
-                }
-            }
-        } else if (env.BRANCH_NAME == 'master') {
-            stage('Push') {
-                withCredentials([file(credentialsId: 'docker', variable: 'DOCKER_CONFIG')]) {
-                    def configDir = sh(script: "dirname ${DOCKER_CONFIG}", returnStdout: true).trim()
-                    sh("docker --config=${configDir} tag ${imageName}:${gitCommit} ${imageName}:stable")
-                    sh("docker --config=${configDir} push ${imageName}:${gitCommit}")
-                    sh("docker --config=${configDir} push ${imageName}:stable")
-                }
-            }
+        stage('Push') {
+            sh("gcloud auth configure-docker")
+            sh("docker push ${imageName}:${gitCommit}")
         }
     }
 }
