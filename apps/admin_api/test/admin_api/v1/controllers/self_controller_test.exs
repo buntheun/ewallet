@@ -30,6 +30,8 @@ defmodule AdminAPI.V1.SelfControllerTest do
                    "name" => account.name,
                    "description" => account.description,
                    "master" => Account.master?(account),
+                   "category_ids" => [],
+                   "categories" => [],
                    "metadata" => %{},
                    "encrypted_metadata" => %{},
                    "avatar" => %{
@@ -87,6 +89,8 @@ defmodule AdminAPI.V1.SelfControllerTest do
                        "name" => account.name,
                        "description" => account.description,
                        "master" => Account.master?(account),
+                       "category_ids" => [],
+                       "categories" => [],
                        "metadata" => %{},
                        "encrypted_metadata" => %{},
                        "avatar" => %{
