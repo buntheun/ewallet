@@ -1,6 +1,7 @@
 defmodule EWalletDB.AccountTest do
   use EWalletDB.SchemaCase
   alias EWalletDB.Account
+  alias EWalletDB.Helpers.Preloader
 
   describe "Account factory" do
     test_has_valid_factory(Account)
@@ -253,6 +254,26 @@ defmodule EWalletDB.AccountTest do
       account2 = insert(:account, %{parent: account1})
       account3 = insert(:account, %{parent: account2})
       assert Account.get_depth(account3) == 3
+    end
+  end
+
+  describe "add_category/2" do
+    test "returns an account with the added category" do
+      [category1, category2] = insert_list(2, :category)
+
+      account =
+        :account
+        |> insert(categories: [category1])
+        |> Preloader.preload(:categories)
+
+      assert account.categories == [category1]
+
+      {:ok, account} = Account.add_category(account, category2)
+      account = Account.get(account.id, preload: :categories)
+
+      assert Enum.member?(account.categories, category1)
+      assert Enum.member?(account.categories, category2)
+      assert Enum.count(account.categories) == 2
     end
   end
 end
