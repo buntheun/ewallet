@@ -33,12 +33,12 @@ defmodule AdminAPI.V1.Router do
     post("/transaction.all", TransactionController, :all)
     post("/transaction.get", TransactionController, :get)
 
-    # Account Category endpoints
-    post("/account_category.all", AccountCategoryController, :all)
-    # post("/account_category.get", AccountCategoryController, :get)
-    # post("/account_category.create", AccountCategoryController, :create)
-    # post("/account_category.update", AccountCategoryController, :update)
-    # post("/account_category.delete", AccountCategoryController, :delete)
+    # Category endpoints
+    post("/category.all", CategoryController, :all)
+    # post("/category.get", CategoryController, :get)
+    # post("/category.create", CategoryController, :create)
+    # post("/category.update", CategoryController, :update)
+    # post("/category.delete", CategoryController, :delete)
 
     # Account endpoints
     post("/account.all", AccountController, :all)
