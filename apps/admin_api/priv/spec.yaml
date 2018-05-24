@@ -847,11 +847,11 @@ components:
               encrypted_metadata: {"something": "secret"}
               created_at: "2018-01-01T00:00:00Z"
               updated_at: "2018-01-01T10:00:00Z"
-            account_id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
+            account_id: "acc_01ca2p8jqans5aty5gj5etmjcf"
             account:
               object: "account"
-              id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
-              parent_id: "acc_01CA26PKGE49AABZD6K6MSHN0Y"
+              id: "acc_01ca2p8jqans5aty5gj5etmjcf"
+              parent_id: "acc_01ca26pkge49aabzd6k6mshn0y"
               name: "Account Name"
               description: "The account description"
               master: true
@@ -912,7 +912,7 @@ components:
             success: true
             data:
               object: "token"
-              id: "tok_ABC_01cbfge9qhmsdbjyb7a8e8pxt3"
+              id: "tok_abc_01cbfge9qhmsdbjyb7a8e8pxt3"
               symbol: "ABC"
               name: "ABC Point"
               subunit_to_unit: 100
@@ -943,7 +943,7 @@ components:
               object: "list"
               data:
                 - object: "token"
-                  id: "tok_ABC_01cbfge9qhmsdbjyb7a8e8pxt3"
+                  id: "tok_abc_01cbfge9qhmsdbjyb7a8e8pxt3"
                   symbol: "ABC"
                   name: "ABC Point"
                   subunit_to_unit: 100
@@ -1130,8 +1130,8 @@ components:
           success: true
           data:
             object: "account"
-            id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
-            parent_id: "acc_01CA26PKGE49AABZD6K6MSHN0Y"
+            id: "acc_01ca2p8jqans5aty5gj5etmjcf"
+            parent_id: "acc_01ca26pkge49aabzd6k6mshn0y"
             name: "Account Name"
             description: "The account description"
             master: true
@@ -1167,8 +1167,8 @@ components:
             object: "list"
             data:
               - object: "account"
-                id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
-                parent_id: "acc_01CA26PKGE49AABZD6K6MSHN0Y"
+                id: "acc_01ca2p8jqans5aty5gj5etmjcf"
+                parent_id: "acc_01ca26pkge49aabzd6k6mshn0y"
                 name: "Account name"
                 description: "The account description"
                 master: true
@@ -1222,7 +1222,7 @@ components:
         - updated_at
       example:
         object: "user"
-        id: "cec34607-0761-4a59-8357-18963e42a1aa"
+        id: "usr_01ce83zf80j542z4q4zqd8qvfx"
         provider_user_id: "wijf-fbancomw-dqwjudb"
         username: "johndoe"
         email: "johndoe@omise.co"
@@ -1245,7 +1245,7 @@ components:
         example:
           data:
             object: "user"
-            id: "cec34607-0761-4a59-8357-18963e42a1aa"
+            id: "usr_01ce83zf80j542z4q4zqd8qvfx"
             provider_user_id: "wijf-fbancomw-dqwjudb"
             username: "johndoe"
             email: "johndoe@omise.co"
@@ -1278,7 +1278,7 @@ components:
             object: "list"
             data:
               - object: "user"
-                id: "cec34607-0761-4a59-8357-18963e42a1aa"
+                id: "usr_01ce83zf80j542z4q4zqd8qvfx"
                 provider_user_id: "wijf-fbancomw-dqwjudb"
                 username: "johndoe"
                 email: "johndoe@omise.co"
@@ -1309,7 +1309,7 @@ components:
         example:
           data:
             object: "user"
-            id: "cec34607-0761-4a59-8357-18963e42a1aa"
+            id: "usr_01ce83zf80j542z4q4zqd8qvfx"
             provider_user_id: "wijf-fbancomw-dqwjudb"
             username: "johndoe"
             email: "johndoe@omise.co"
@@ -1343,7 +1343,7 @@ components:
             object: "list"
             data:
               - object: "user"
-                id: "cec34607-0761-4a59-8357-18963e42a1aa"
+                id: "usr_01ce83zf80j542z4q4zqd8qvfx"
                 provider_user_id: "wijf-fbancomw-dqwjudb"
                 username: "johndoe"
                 email: "johndoe@omise.co"
@@ -1369,7 +1369,6 @@ components:
           type: string
         id:
           type: string
-          format: uuid
         from:
           type: object
           properties:
@@ -1443,11 +1442,11 @@ components:
           success: true
           data:
             object: "transaction"
-            id: "ce3982f5-4a27-498d-a91b-7bb2e2a8d3d1"
+            id: "txn_01ce840q5svw6058r8yk6jzf65"
             idempotency_token: "123982f5-4a27-498d-a91b-7bb2e2a8d3d1"
             from:
               object: "transaction_source"
-              address: "XXX123"
+              address: "bec66785-f0d8-416c-a650-2859aa680166"
               amount: 1000
               token:
                 object: "token"
@@ -1459,7 +1458,7 @@ components:
                 updated_at: "2018-01-01T10:00:00Z"
             to:
               object: "transaction_source"
-              address: "XXX123"
+              address: "47218ab4-d94f-44e9-b7f2-36061f76ce58"
               amount: 1000
               token:
                 object: "token"
@@ -1502,10 +1501,10 @@ components:
             object: "list"
             data:
               - object: "transaction"
-                id: "ce3982f5-4a27-498d-a91b-7bb2e2a8d3d1"
+                id: "txn_01ce842dxrrprkak0rzq716ax1"
                 from:
                   object: "transaction_source"
-                  address: "XXX123"
+                  address: "bec66785-f0d8-416c-a650-2859aa680166"
                   amount: 1000
                   token:
                     object: "token"
@@ -1517,7 +1516,7 @@ components:
                     updated_at: "2018-01-01T10:00:00Z"
                 to:
                   object: "transaction_source"
-                  address: "XXX123"
+                  address: "47218ab4-d94f-44e9-b7f2-36061f76ce58"
                   amount: 1000
                   token:
                     object: "token"
@@ -1552,7 +1551,6 @@ components:
           type: string
         id:
           type: string
-          format: uuid
         access_key:
           type: string
         secret_key:
@@ -1594,10 +1592,10 @@ components:
           success: true
           data:
             object: "key"
-            id: "ce3982f5-4a27-498d-a91b-7bb2e2a8d3d1"
+            id: "key_01ce843mvg5fa1zpk5myy69h4q"
             access_key: "jZKpGKgwy5LJTWwXqSD4jVWYDdnTKHlRYkaNB6SqsaQ"
             secret_key: "the_secret_key_or_null"
-            account_id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
+            account_id: "acc_01ca2p8jqans5aty5gj5etmjcf"
             created_at: "2018-01-01T00:00:00Z"
             updated_at: "2018-01-01T10:00:00Z"
             deleted_at: null
@@ -1626,10 +1624,10 @@ components:
             object: "list"
             data:
               - object: "key"
-                id: "ce3982f5-4a27-498d-a91b-7bb2e2a8d3d1"
+                id: "key_01ce843mvg5fa1zpk5myy69h4q"
                 access_key: "jZKpGKgwy5LJTWwXqSD4jVWYDdnTKHlRYkaNB6SqsaQ"
                 secret_key: "the_secret_key_or_null"
-                account_id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
+                account_id: "acc_01ca2p8jqans5aty5gj5etmjcf"
                 created_at: "2018-01-01T00:00:00Z"
                 updated_at: "2018-01-01T10:00:00Z"
                 deleted_at: null
@@ -1650,7 +1648,6 @@ components:
           type: string
         id:
           type: string
-          format: uuid
         key:
           type: string
         owner_app:
@@ -1692,10 +1689,10 @@ components:
           success: true
           data:
             object: "api_key"
-            id: "ce3982f5-4a27-498d-a91b-7bb2e2a8d3d1"
+            id: "api_01ce844d5w9e81snekr5kprvem"
             key: "jZKpGKgwy5LJTWwXqSD4jVWYDdnTKHlRYkaNB6SqsaQ"
             owner_app: "admin_api"
-            account_id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
+            account_id: "acc_01ca2p8jqans5aty5gj5etmjcf"
             created_at: "2018-01-01T00:00:00Z"
             updated_at: "2018-01-01T10:00:00Z"
             deleted_at: null
@@ -1724,10 +1721,10 @@ components:
             object: "list"
             data:
               - object: "api_key"
-                id: "ce3982f5-4a27-498d-a91b-7bb2e2a8d3d1"
+                id: "api_01ce844d5w9e81snekr5kprvem"
                 key: "jZKpGKgwy5LJTWwXqSD4jVWYDdnTKHlRYkaNB6SqsaQ"
                 owner_app: "admin_api"
-                account_id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
+                account_id: "acc_01ca2p8jqans5aty5gj5etmjcf"
                 created_at: "2018-01-01T00:00:00Z"
                 updated_at: "2018-01-01T10:00:00Z"
                 deleted_at: null
@@ -1861,7 +1858,7 @@ components:
             required:
               - id
             example:
-              id: "tok_ABC_01cbfge9qhmsdbjyb7a8e8pxt3"
+              id: "tok_abc_01cbfge9qhmsdbjyb7a8e8pxt3"
     # Request body for creating a token
     TokenCreateBody:
         description: The parameters to create a token. Note that if amount is specified, the token will be minted automatically.
@@ -1924,7 +1921,7 @@ components:
                 - id
                 - amount
               example:
-                id: "ce3982f5-4a27-498d-a91b-7bb2e2a8d3d1"
+                id: "tok_ABC_01ce846km1syzwezxfmgdn7dt7"
                 amount: 1000
 
     ###########################################
@@ -2071,7 +2068,7 @@ components:
             required:
               - id
             example:
-              id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
+              id: "acc_01ca2p8jqans5aty5gj5etmjcf"
     AccountCreateBody:
       description: The parameters to use for creating a new account.
       required: true
@@ -2098,7 +2095,7 @@ components:
             example:
               name: "Account Name"
               description: "The account description"
-              parent_id: "acc_01CA26PKGE49AABZD6K6MSHN0Y"
+              parent_id: "acc_01ca26pkge49aabzd6k6mshn0y"
               category_ids: []
               metadata: {}
               encrypted_metadata: {}
@@ -2126,7 +2123,7 @@ components:
             required:
               - id
             example:
-              id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
+              id: "acc_01ca2p8jqans5aty5gj5etmjcf"
               name: "Account Name"
               description: "The account description"
               category_ids: []
@@ -2144,7 +2141,7 @@ components:
             required:
               - account_id
             example:
-              account_id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
+              account_id: "acc_01ca2p8jqans5aty5gj5etmjcf"
     AccountAssignUserBody:
       description: The parameters to use for assigning a user to an account
       required: true
@@ -2155,7 +2152,6 @@ components:
               - properties:
                   user_id:
                     type: string
-                    format: uuid
                   account_id:
                     type: string
                   role_name:
@@ -2168,8 +2164,8 @@ components:
                   - role_name
                   - redirect_url
                 example:
-                  user_id: "582edb32-1b7e-46aa-95f2-e0b3f57d71d3"
-                  account_id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
+                  user_id: "usr_01ce83q2zw7zk1dqr79t22zr1v"
+                  account_id: "acc_01ca2p8jqans5aty5gj5etmjcf"
                   role_name: "admin"
                   redirect_url: "https://domain/redirect_path?email={email}&token={token}"
               - properties:
@@ -2186,12 +2182,12 @@ components:
                   - redirect_url
                 example:
                   email: "user@example.com"
-                  account_id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
+                  account_id: "acc_01ca2p8jqans5aty5gj5etmjcf"
                   role_name: "admin"
                   redirect_url: "https://domain/redirect_path?email={email}&token={token}"
             example:
-              account_id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
-              user_id: "582edb32-1b7e-46aa-95f2-e0b3f57d71d3"
+              account_id: "acc_01ca2p8jqans5aty5gj5etmjcf"
+              user_id: "usr_01ce83q2zw7zk1dqr79t22zr1v"
               role_name: "admin"
               redirect_url: "https://domain/redirect_path?email={email}&token={token}"
     AccountUnassignUserBody:
@@ -2203,15 +2199,14 @@ components:
             properties:
               user_id:
                 type: string
-                format: uuid
               account_id:
                 type: string
             required:
               - user_id
               - account_id
             example:
-              account_id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
-              user_id: "582edb32-1b7e-46aa-95f2-e0b3f57d71d3"
+              account_id: "acc_01ca2p8jqans5aty5gj5etmjcf"
+              user_id: "usr_01ce83q2zw7zk1dqr79t22zr1v"
     AccountUploadBody:
       description: The parameters to use for uploading an account's avatar. Only supports .jpg, .jpeg, .gif and .png.
       required: true
@@ -2228,7 +2223,7 @@ components:
               - id
               - avatar
             example:
-              id: "acc_01CA2P8JQANS5ATY5GJ5ETMJCF"
+              id: "acc_01ca2p8jqans5aty5gj5etmjcf"
               avatar: "/path/to/file"
 
     ######################################
@@ -2269,11 +2264,10 @@ components:
             properties:
               id:
                 type: string
-                format: uuid
             required:
               - id
             example:
-              id: "ce3982f5-4a27-498d-a91b-7bb2e2a8d3d1"
+              id: "usr_01ce83q2zw7zk1dqr79t22zr1v"
     InviteAcceptBody:
       description: The parameters to use for accepting an invite
       required: true
@@ -2338,11 +2332,10 @@ components:
             properties:
               id:
                 type: string
-                format: uuid
             required:
               - id
             example:
-              id: "ce3982f5-4a27-498d-a91b-7bb2e2a8d3d1"
+              id: "txn_01ce83x8w4db56f3fcjy4n4qpc"
 
     ######################################
     #      ADMIN USER REQUEST BODIES     #
@@ -2382,11 +2375,10 @@ components:
             properties:
               id:
                 type: string
-                format: uuid
             required:
               - id
             example:
-              id: "ce3982f5-4a27-498d-a91b-7bb2e2a8d3d1"
+              id: "usr_01ce83xvrsh8bzpctq3wqbprf8"
     AdminUploadBody:
       description: The parameters to use for uploading an admin's avatar. Only supports .jpg, .jpeg, .gif and .png.
       required: true
@@ -2396,7 +2388,6 @@ components:
             properties:
               id:
                 type: string
-                format: uuid
               avatar:
                 type: string
                 format: binary
@@ -2404,7 +2395,7 @@ components:
               - id
               - avatar
             example:
-              id: "ce3982f5-4a27-498d-a91b-7bb2e2a8d3d1"
+              id: "usr_01ce83xvrsh8bzpctq3wqbprf8"
               avatar: "/path/to/file"
 
     ######################################
@@ -2446,11 +2437,10 @@ components:
               - properties:
                   id:
                     type: string
-                    format: uuid
                 required:
                   - id
                 example:
-                  id: "582edb32-1b7e-46aa-95f2-e0b3f57d71d3"
+                  id: "key_01ce83yphmq6vt4qnmn3ykwcw6"
               - properties:
                   access_key:
                     type: string
@@ -2459,7 +2449,7 @@ components:
                 example:
                   access_key: "jZKpGKgwy5LJTWwXqSD4jVWYDdnTKHlRYkaNB6SqsaQ"
             example:
-              id: "582edb32-1b7e-46aa-95f2-e0b3f57d71d3"
+              id: "key_01ce83yphmq6vt4qnmn3ykwcw6"
 
     ######################################
     #       API KEY REQUEST BODIES       #
@@ -2512,11 +2502,10 @@ components:
             properties:
               id:
                 type: string
-                format: uuid
             required:
               - id
             example:
-              id: "582edb32-1b7e-46aa-95f2-e0b3f57d71d3"
+              id: "key_01ce83yphmq6vt4qnmn3ykwcw6"
 
   ######################################
   #          SECURITY SCHEMES          #
